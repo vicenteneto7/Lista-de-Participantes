@@ -5,8 +5,14 @@ import { styles } from './styles';
 export function Home() {
   return (
     <View style={styles.container}>
-      <Text>vitória</Text>
-      <StatusBar style="auto" />
+      <Text style={styles.eventName}>
+        Nome do Evento
+      </Text>
+
+      <Text style={styles.eventDate}>
+        Sexta, 6 de abril de 2024.
+      </Text>
+
     </View>
   );
 }
