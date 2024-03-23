@@ -22,5 +22,17 @@ export const styles = StyleSheet.create({
       borderRadius: 5,
       color: '#fdfcfe',
       padding: 16
+    },
+    buttonText: {
+      color: '#ffff',
+      fontSize: 24
+    },
+    button: {
+      width: 56,
+      height: 56,
+      borderRadius: 5,
+      backgroundColor: '#31cf67',
+      justifyContent: 'center',
+      alignItems: 'center'
     }
   });
