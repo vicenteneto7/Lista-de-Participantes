@@ -8,6 +8,10 @@ export function Home() {
     console.log("bico de pato");
   };
 
+  const handleParticipantRemove = (name) => {
+    console.log(`você clicou no ${name}`);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.eventName}>Nome do Evento</Text>
@@ -26,8 +30,8 @@ export function Home() {
         </TouchableOpacity>
       </View>
 
-      <Participant />
-      <Participant />
+      <Participant name='Vicente' onRemove={() => handleParticipantRemove("")} />
+      
     </View>
   );
 }
