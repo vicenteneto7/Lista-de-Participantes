@@ -1,6 +1,8 @@
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 
+import { Participant } from "../../components/Participant";
+
 export function Home() {
   const handleParticipantAdd = () => {
     console.log("bico de pato");
@@ -23,6 +25,9 @@ export function Home() {
           <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
       </View>
+
+      <Participant />
+      <Participant />
     </View>
   );
 }

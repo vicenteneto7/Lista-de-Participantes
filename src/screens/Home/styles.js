@@ -23,7 +23,6 @@ export const styles = StyleSheet.create({
       borderRadius: 5,
       color: '#fdfcfe',
       padding: 16,
-      marginRight: 7
     },
     buttonText: {
       color: '#ffff',
@@ -35,7 +34,7 @@ export const styles = StyleSheet.create({
       borderRadius: 5,
       backgroundColor: '#31cf67',
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
     },
     form: {
       width: '100%',
