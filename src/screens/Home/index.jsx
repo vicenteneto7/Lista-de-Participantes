@@ -10,35 +10,51 @@ import {
 import { styles } from "./styles";
 
 import { Participant } from "../../components/Participant";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function Home() {
   const [participants, setParticipants] = useState([]);
-  const [newParticipant, setNewParticipant] = useState('');
+  const [newParticipant, setNewParticipant] = useState("");
 
   const handleParticipantAdd = async () => {
-    const search = () => participants.filter( participant => participant == newParticipant)
+    const search = () => participants.filter((participant) => participant == newParticipant);
 
-    if (newParticipant == ''){
-      return
+    if (newParticipant == "") {
+      return;
     }
 
-    if (search.length !== 0) {
-      Alert.alert("Atenção", "Nome da participante repetido!")
-      return
-    } 
+    if (participants.includes(newParticipant)) {
+      return Alert.alert("Atenção", "Nome da participante repetido!");
+      
+    }
 
-    setParticipants([...participants, newParticipant])
-    setNewParticipant('')
+    setParticipants([...participants, newParticipant]);
+    setNewParticipant("");
 
-    Keyboard.dismiss()
+    Keyboard.dismiss();
   };
 
   const handleParticipantRemove = (name) => {
     console.log(`você clicou no ${name}`);
   };
 
-  
+  useEffect(() => {
+    const loadData = async () => {
+      const participant = await AsyncStorage.getItem("participant");
+      if (participant) {
+        setTasks(JSON.parse(participant));
+      }
+    };
+    loadData();
+  }, []);
+
+  useEffect(() => {
+    const saveData = async () => {
+      AsyncStorage.setItem("participants", JSON.stringify(participants));
+    };
+    saveData();
+  }, [participants]);
 
   return (
     <View style={styles.container}>
@@ -51,20 +67,25 @@ export function Home() {
           placeholderTextColor="#ffff"
           autoCorrect={true}
           style={styles.input}
+          onChangeText={text => setNewParticipant(text)}
+          value={newParticipant}
         />
 
-        <TouchableOpacity onPress={() => handleParticipantAdd()} style={styles.button}>
+        <TouchableOpacity
+          onPress={() => handleParticipantAdd()}
+          style={styles.button}
+        >
           <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
       </View>
 
       <FlatList
         data={participants}
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item.toString()}
         renderItem={({ item }) => (
           <Participant
             key={item}
-            name="Vicente"
+            name={item}
             onRemove={() => handleParticipantRemove("")}
           />
         )}
@@ -74,9 +95,7 @@ export function Home() {
             Ninguém chegou no evento ainda? Adicione participantes a sua lista.
           </Text>
         )}
-      >
-        
-      </FlatList>
+      />
     </View>
   );
 }
